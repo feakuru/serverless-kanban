@@ -6,7 +6,7 @@ def respond(fn, *args):
     try:
         return {
             'statusCode': 200,
-            'body': json.dumps(fn(*args))
+            'body': fn(*args)
         }
     except Exception as e:
         return {
