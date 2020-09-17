@@ -22,13 +22,17 @@ functions:
     handler: handlers.get_task
     events:
       - http:
-          path: /tasks
-          method: post
+          path: /tasks/{task_id}
+          method: get
           cors: true
+          integration: lambda
+          request:
+            paths:
+              todo_id: true
   create_task:
     handler: handlers.create_task
     events:
       - http:
-          path: /tasks/{task_id}
-          method: get
+          path: /tasks
+          method: post
           cors: true
