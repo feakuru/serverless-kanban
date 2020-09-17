@@ -1,5 +1,5 @@
 import json
-from .rds import RDS
+from rds import RDS
 
 
 def respond(fn, *args):

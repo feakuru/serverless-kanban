@@ -11,4 +11,4 @@ class RDS:
         }
 
     def create_task(data):
-        return {'id': data['id', 'task': 'not really creating a task, are we'}
+        return {'id': data['id'], 'task': 'not really creating a task, are we'}
