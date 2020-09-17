@@ -4,11 +4,22 @@ org: feakuru
 
 frameworkVersion: '2'
 
+plugins:
+  - serverless-python-requirements
+package:
+  exclude:
+    - requirements.txt
+
 provider:
   name: aws
   runtime: python3.8
   stage: dev
-  region: us-west-1
+  region: us-west-1 
+  environment:
+    DB_HOST=feaku.ru
+    DB_NAME=kanban
+    DB_USER=kanban_user
+    DB_PASSWORD=kanban_password
 
 functions:
   list_tasks:
