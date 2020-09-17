@@ -14,12 +14,12 @@ provider:
   name: aws
   runtime: python3.8
   stage: dev
-  region: us-west-1 
+  region: eu-west-1 
   environment:
-    DB_HOST=feaku.ru
-    DB_NAME=kanban
-    DB_USER=kanban_user
-    DB_PASSWORD=kanban_password
+    DB_HOST: feaku.ru
+    DB_NAME: kanban
+    DB_USER: kanban_user
+    DB_PASSWORD: kanban_password
 
 functions:
   list_tasks:
