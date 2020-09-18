@@ -47,3 +47,7 @@ functions:
           path: /tasks
           method: post
           cors: true
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+    dockerFile: ./Dockerfile
