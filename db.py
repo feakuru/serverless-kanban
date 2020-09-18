@@ -15,6 +15,7 @@ class DB:
     
     @classmethod
     def __format_task(cls, task):
+
         def get_status(started, finished):
             if started is None:
                 return "To Do"
@@ -22,12 +23,19 @@ class DB:
                 return "In Progress"
             else:
                 return "Done"
+
+        def get_cost(started, finished):
+            if started and finished:
+                hours = (finished - started).seconds / 3600
+                return hours * int(os.environ.get('TASK_HOURLY_COST', 1000))
+
         return {
             'id': task['id'],
             'text': task['text'],
-            'started': task['started'],
-            'finished': task['finished'],
-            'status': get_status(task['started'], task['finished'])
+            'started': str(task['started']),
+            'finished': str(task['finished']),
+            'status': get_status(task['started'], task['finished']),
+            'cost': get_cost(task['started'], task['finished'])
         }
 
     @classmethod
@@ -69,3 +77,27 @@ class DB:
                 conn.commit()
                 return cls.get_task(result_id)
         raise Exception('Not found!')
+
+    @classmethod
+    def start_task(cls, task_id):
+        with cls.__connection() as conn:
+            with conn.cursor(cursor_factory=DictCursor) as cursor:
+                cursor.execute(
+                    'UPDATE tasks SET started=NOW() WHERE id=%s',
+                    (task_id, )
+                )
+                conn.commit()
+                return {'status': 'ok'}
+        raise Exception('DB error')
+
+    @classmethod
+    def finish_task(cls, task_id):
+        with cls.__connection() as conn:
+            with conn.cursor(cursor_factory=DictCursor) as cursor:
+                cursor.execute(
+                    'UPDATE tasks SET finished=NOW() WHERE id=%s',
+                    (task_id, )
+                )
+                conn.commit()
+                return {'status': 'ok'}
+        raise Exception('DB error')

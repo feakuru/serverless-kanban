@@ -20,6 +20,7 @@ provider:
     DB_NAME: kanban
     DB_USER: kanban_user
     DB_PASSWORD: kanban_password
+    TASK_HOURLY_COST: 100
 
 functions:
   list_tasks:
@@ -52,3 +53,27 @@ functions:
           method: post
           cors: true
           integration: lambda
+  start_task:
+    handler: handlers.start_task
+    timeout: 10
+    events:
+      - http:
+          path: /tasks/{task_id}/start
+          method: get
+          cors: true
+          integration: lambda
+          request:
+            paths:
+              todo_id: true
+  finish_task:
+    handler: handlers.finish_task
+    timeout: 10
+    events:
+      - http:
+          path: /tasks/{task_id}/finish
+          method: get
+          cors: true
+          integration: lambda
+          request:
+            paths:
+              todo_id: true

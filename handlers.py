@@ -20,3 +20,9 @@ def create_task(event, context):
     data = json.loads(event['body'])
     return respond(DB.create_task, data)
 
+def start_task(event, context):
+    return respond(DB.start_task, event['path']['task_id'])
+
+def finish_task(event, context):
+    return respond(DB.finish_task, event['path']['task_id'])
+
