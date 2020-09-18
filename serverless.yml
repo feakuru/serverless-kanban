@@ -24,13 +24,16 @@ provider:
 functions:
   list_tasks:
     handler: handlers.list_tasks
+    timeout: 10
     events:
       - http:
           path: /tasks
           method: get
           cors: true
+          integration: lambda
   get_task:
     handler: handlers.get_task
+    timeout: 10
     events:
       - http:
           path: /tasks/{task_id}
@@ -42,12 +45,10 @@ functions:
               todo_id: true
   create_task:
     handler: handlers.create_task
+    timeout: 10
     events:
       - http:
           path: /tasks
           method: post
           cors: true
-custom:
-  pythonRequirements:
-    dockerizePip: non-linux
-    dockerFile: ./Dockerfile
+          integration: lambda
