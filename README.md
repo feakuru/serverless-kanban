@@ -1,5 +1,5 @@
 # Serverless Kanban board
-This is a simple API for a Kanban board app designed with serverless.com. It is written in Python 3.8.
+This is a simple API for a Kanban board app designed with serverless.com. It is written in Python 3.8. You can test it out at `https://gr2iwhc2al.execute-api.eu-west-1.amazonaws.com/dev/`.
 
 ## Methods
 
