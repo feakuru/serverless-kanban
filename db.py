@@ -33,18 +33,19 @@ class DB:
                 result = cursor.fetchone()
                 if result is not None:
                     return cls.__format_task(result)
-                else:
-                    raise Exception('Not found!')
+        raise Exception('Not found!')
 
     @classmethod
     def get_all_tasks(cls):
+        tasks = []
         with cls.__connection() as conn:
             with conn.cursor(cursor_factory=DictCursor) as cursor:
                 cursor.execute(
                     'SELECT * FROM tasks'
                 )
                 result = cursor.fetchall()
-                return {'tasks': [cls.__format_task(row) for row in result]}
+                tasks = [cls.__format_task(row) for row in result]
+        return {'tasks': tasks}
 
     @classmethod
     def create_task(cls, data):
@@ -59,3 +60,4 @@ class DB:
                 result_id = cursor.fetchone()['id']
                 conn.commit()
                 return cls.get_task(result_id)
+        raise Exception('Not found!')
