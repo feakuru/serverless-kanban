@@ -83,7 +83,7 @@ class DB:
         with cls.__connection() as conn:
             with conn.cursor(cursor_factory=DictCursor) as cursor:
                 cursor.execute(
-                    'UPDATE tasks SET started=NOW() WHERE id=%s',
+                    'UPDATE tasks SET started=NOW() WHERE id=%s AND started IS NULL',
                     (task_id, )
                 )
                 conn.commit()
@@ -95,7 +95,9 @@ class DB:
         with cls.__connection() as conn:
             with conn.cursor(cursor_factory=DictCursor) as cursor:
                 cursor.execute(
-                    'UPDATE tasks SET finished=NOW() WHERE id=%s',
+                    'UPDATE tasks SET finished=NOW() WHERE id=%s '
+                        + 'AND started IS NOT NULL'
+                        + 'AND finished IS NULL',
                     (task_id, )
                 )
                 conn.commit()
