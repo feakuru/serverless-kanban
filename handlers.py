@@ -4,16 +4,10 @@ from db import DB
 
 def respond(fn, *args):
     try:
-        return {
-            'statusCode': 200,
-            'body': fn(*args)
-        }
+        return fn(*args)
     except Exception as e:
         return {
-            'statusCode': 400,
-            'body': {
-                'error': str(e)
-            }
+            'error': str(e),
         }
 
 def list_tasks(event, context):
