@@ -15,11 +15,19 @@ class DB:
     
     @classmethod
     def __format_task(cls, task):
+        def get_status(started, finished):
+            if started is None:
+                return "To Do"
+            elif finished is None:
+                return "In Progress"
+            else:
+                return "Done"
         return {
             'id': task['id'],
             'text': task['text'],
             'started': task['started'],
             'finished': task['finished'],
+            'status': get_status(task['started'], task['finished'])
         }
 
     @classmethod
